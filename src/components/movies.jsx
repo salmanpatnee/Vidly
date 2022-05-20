@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 import Like from './common/Like';
+import Pagination from './common/Pagination';
 
 class Movies extends Component {
 
     state = {
-        movies: getMovies()
+        movies: getMovies(),
+        perPage: 3,
+        currentPage: 1
     }
 
     handleDeleteMovie = (movie) => {
@@ -23,8 +26,13 @@ class Movies extends Component {
         this.setState({ movies });
     }
 
+    handlePageChange = page => {
+        this.setState({ currentPage: page });
+    }
+
     render() {
         const { length: count } = this.state.movies;
+        const { perPage, currentPage } = this.state;
 
         if (count === 0) return <div class="alert alert-danger">
             <strong>Oops!</strong> There are no movies in the database.
@@ -61,15 +69,22 @@ class Movies extends Component {
                                                 onClick={() => this.handleLike(movie)} />
                                         </td>
                                         <td>
-                                            <button onClick={() => this.handleDeleteMovie(movie)} className='btn btn-danger'>Delete</button>
+                                            <button
+                                                onClick={() => this.handleDeleteMovie(movie)}
+                                                className='btn btn-danger'>
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 )}
-
                         </tbody>
                     </table>
                 </div>
-
+                <Pagination
+                    totalItems={count}
+                    perPage={perPage}
+                    currentPage={currentPage}
+                    onPageChange={this.handlePageChange} />
             </React.Fragment>
         );
     }
