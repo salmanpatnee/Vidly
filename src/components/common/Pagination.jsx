@@ -1,36 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
-class Pagination extends Component {
+const Pagination = props => {
 
-    render() {
+    const { totalItems, perPage, currentPage, onPageChange } = props;
+    const paginateLinks = Math.ceil(totalItems / perPage);
 
-        const { totalItems, perPage, currentPage, onPageChange } = this.props;
-        const paginateLinks = Math.ceil(totalItems / perPage);
+    if (paginateLinks === 1) return null;
 
-        if (paginateLinks === 1) return null;
+    const pages = _.range(1, paginateLinks + 1);
 
-        const pages = _.range(1, paginateLinks + 1);
+    return (<nav>
+        <ul className="pagination">
+            {pages.map(page => <li key={page} className={currentPage === page ? 'page-item active' : 'page-item'}>
+                <a
+                    onClick={() => onPageChange(page)}
+                    className="page-link">{page}</a>
+            </li>)}
 
-        return (<nav>
-            <ul className="pagination">
-                {pages.map(page => <li key={page} className={currentPage === page ? 'page-item active' : 'page-item'}>
-                    <a
-                        onClick={() => onPageChange(page)}
-                        className="page-link">{page}</a>
-                </li>)}
-
-            </ul>
-        </nav>);
-    };
-};
+        </ul>
+    </nav>);
+}
 
 Pagination.propTypes = {
-    totalItems: PropTypes.number.isRequired, 
-    perPage: PropTypes.number.isRequired, 
-    currentPage: PropTypes.number.isRequired, 
-    onPageChange: PropTypes.func.isRequired, 
+    totalItems: PropTypes.number.isRequired,
+    perPage: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired,
 };
 
 export default Pagination;
