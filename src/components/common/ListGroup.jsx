@@ -6,9 +6,6 @@ const ListGroup = props => {
 
     return (
         <div className="list-group">
-            <a className="list-group-item list-group-item-action ">
-                All Genres
-            </a>
             {items.map(item => <a
                 key={item[valueProperty]}
                 onClick={() => onSelectItem(item)}
