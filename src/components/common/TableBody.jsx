@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
- class TableBody extends Component {
-     render() {
-         
-        const {data, columns} = this.props;
-         return (
-            <tbody>
-            {
-                data.map(item =>
-                    <tr>
-                        {columns.map(column => <td>{}</td>)}
-                    </tr>
-                )}
-        </tbody>
-         );
-     }
- }
-  
- export default TableBody;
+import _ from 'lodash';
 
-//  <td>{movie.title}</td>
-//                         <td>{movie.genre.name}</td>
-//                         <td>{movie.numberInStock}</td>
-//                         <td>{movie.dailyRentalRate}</td>
-//                         <td className='text-center'>
-//                             <Like
-//                                 isLiked={movie.liked}
-//                                 onClick={() => onLike(movie)} />
-//                         </td>
-//                         <td>
-//                             <button
-//                                 onClick={() => onDelete(movie)}
-//                                 className='btn btn-danger'>
-//                                 Delete
-//                             </button>
-//                         </td>
+class TableBody extends Component {
+    renderCell = (item, column) => {
+        if (column.content) return column.content(item);
+
+        return _.get(item, column.column);
+    };
+
+    createKey = (item, column) => {
+        return item._id + (column.column || column.key)
+    }
+
+    render() {
+
+        const { data, columns } = this.props;
+        return (
+            <tbody>
+                {
+                    data.map(item =>
+                        <tr key={item._id}>
+                            {columns.map(column =>
+                                <td key={this.createKey(item, column)}>
+                                    {this.renderCell(item, column)}
+                                </td>
+                            )}
+                        </tr>
+                    )}
+            </tbody>
+        );
+    }
+}
+
+export default TableBody;
