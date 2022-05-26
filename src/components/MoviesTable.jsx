@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import TableHeader from './common/TableHeader';
-import TableBody from './common/TableBody';
+import Table from './common/Table';
 import Like from './common/Like';
 
 class MoviesTable extends Component {
@@ -13,27 +12,14 @@ class MoviesTable extends Component {
         { key: "favorite", content: movie => (<Like isLiked={movie.liked} onClick={() => this.props.onLike(movie)} />) },
         { key: "action", content: movie => (<button onClick={() => this.props.onDelete(movie)} className='btn btn-danger'>Delete </button>) },
     ];
-
-
-
+    
     render() {
         const { movies, onSort, sortColumn } = this.props
-        return (
-            <div className="table-responsive">
-                <table className='table'>
-                    <TableHeader
-                        columns={this.columns}
-                        sortColumn={sortColumn}
-                        onSort={onSort}
-                    />
-
-                    <TableBody
-                        data={movies}
-                        columns={this.columns}
-                    />
-
-                </table>
-            </div>);
+        return (<Table 
+                data={movies} 
+                columns={this.columns} 
+                sortColumn={sortColumn} 
+                onSort={onSort}/>);
     }
 }
 
