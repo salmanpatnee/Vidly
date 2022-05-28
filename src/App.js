@@ -1,12 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-
-import './App.css';
 import Navbar from './components/common/Navbar';
 import Movies from './components/Movies';
+import MovieDetails from './components/MovieDetails';
 import Customers from './components/Customers';
 import Rentals from './components/Rentals';
-import MovieDetails from './components/MovieDetails';
 import NoMatch from './components/NoMatch';
+import LoginForm from './components/common/LoginForm';
+import './App.css';
+
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Navbar />
       <main className="container">
         <Routes>
+          <Route path="/login" element={<LoginForm />} />
           <Route path="/movies/:id" element={<MovieDetails />} />
           <Route path="/movies" element={<Movies />} />
           <Route exact path="/" element={<Navigate replace to="/movies" />} />

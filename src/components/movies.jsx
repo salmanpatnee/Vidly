@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
 import MoviesTable from './MoviesTable';
+import { paginate } from '../utils/paginate';
 import Pagination from './common/Pagination';
 import ListGroup from './common/ListGroup';
-import { paginate } from '../utils/paginate';
 import _ from 'lodash';
 
 class Movies extends Component {
@@ -16,7 +16,7 @@ class Movies extends Component {
         selectedGenre: null,
         perPage: 4,
         currentPage: 1
-    }
+    };
 
     componentDidMount() {
         const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
@@ -59,7 +59,6 @@ class Movies extends Component {
             : allMovies;
 
         const sortedMovies = _.orderBy(filteredMovies, [sortColumn.column], [sortColumn.order]);
-
         const movies = paginate(sortedMovies, currentPage, perPage);
 
         return { data: movies, totalCount: filteredMovies.length };
