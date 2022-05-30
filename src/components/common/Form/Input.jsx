@@ -1,17 +1,15 @@
+import { rest } from 'lodash';
 import React from 'react';
 
-const Input = ({ name, label, onChange, value, error }) => {
+const Input = ({ name, label, error, ...rest }) => {
     return (
         <div className="form-group">
             <label htmlFor={name}> {label}</label>
             <input
-                value={value}
-                type="text"
+            {...rest}
                 id={name}
                 name={name}
                 className='form-control'
-                onChange={onChange}
-                autoFocus
             />
             {error && <small className="form-text text-danger">{error}</small>}
         </div>
