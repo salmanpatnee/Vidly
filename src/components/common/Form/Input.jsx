@@ -13,7 +13,7 @@ const Input = ({ name, label, onChange, value, error }) => {
                 onChange={onChange}
                 autoFocus
             />
-            {error && <small class="form-text text-danger">{error}</small>}
+            {error && <small className="form-text text-danger">{error}</small>}
         </div>
     );
 }
