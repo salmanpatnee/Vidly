@@ -31,6 +31,11 @@ const Navbar = () => {
                     </ul>
                     <ul className="navbar-nav mr-0">
                         <li className="nav-item">
+                            <NavLink className="nav-link btn btn-success btn-sm text-light mr-2" to="/register">
+                                <i className="fa fa-sign-in" aria-hidden="true"></i> Register
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
                             <NavLink className="nav-link btn btn-info btn-sm text-light" to="/login"><i className="fa fa-sign-in" aria-hidden="true"></i> Login</NavLink>
                         </li>
                     </ul>

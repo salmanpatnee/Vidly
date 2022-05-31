@@ -6,7 +6,11 @@ import Customers from './components/Customers';
 import Rentals from './components/Rentals';
 import NoMatch from './components/NoMatch';
 import LoginForm from './components/common/LoginForm';
+import RegisterForm from './components/common/RegisterForm';
+import MovieForm from './components/MovieForm';
 import './App.css';
+
+
 
 
 function App() {
@@ -16,6 +20,8 @@ function App() {
       <main className="container">
         <Routes>
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route exact path="/movies/new" element={<MovieForm />} />
           <Route path="/movies/:id" element={<MovieDetails />} />
           <Route path="/movies" element={<Movies />} />
           <Route exact path="/" element={<Navigate replace to="/movies" />} />

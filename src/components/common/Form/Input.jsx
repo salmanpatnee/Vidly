@@ -1,4 +1,3 @@
-import { rest } from 'lodash';
 import React from 'react';
 
 const Input = ({ name, label, error, ...rest }) => {
@@ -6,7 +5,7 @@ const Input = ({ name, label, error, ...rest }) => {
         <div className="form-group">
             <label htmlFor={name}> {label}</label>
             <input
-            {...rest}
+                {...rest}
                 id={name}
                 name={name}
                 className='form-control'

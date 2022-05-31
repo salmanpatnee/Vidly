@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import Input from './Input';
+import Select from './Select';
 
 class Form extends Component {
 
@@ -56,23 +57,36 @@ class Form extends Component {
 
         const { data, errors } = this.state;
 
-        return <Input 
+        return <Input
             type={type}
-            name={name} 
+            name={name}
             value={data[name]}
-            label={label}  
-            onChange={this.handleChange} 
+            label={label}
+            onChange={this.handleChange}
             error={errors[name]} />;
     };
 
+    renderSelect = (name, label, data) => {
+
+        const { errors } = this.state;
+
+        return <Select
+            name={name}
+            items={data}
+            label={label}
+            onChange={this.handleChange}
+            error={errors[name]}
+        />
+    };
+
     renderButton = label => {
-        return <button 
-            disabled={this.validate()} 
+        return <button
+            disabled={this.validate()}
             className="btn btn-primary">
-                {label}
-            </button>;
+            {label}
+        </button>;
     }
-    
+
 }
 
 export default Form;
