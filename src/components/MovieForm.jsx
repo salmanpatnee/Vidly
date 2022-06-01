@@ -1,7 +1,10 @@
 import React from 'react';
 import Joi from 'joi-browser';
 import Form from './common/Form/Form';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { getGenres } from './../services/fakeGenreService';
+import { getMovie, saveMovie } from './../services/fakeMovieService';
 
 class MovieForm extends Form {
 
@@ -12,16 +15,12 @@ class MovieForm extends Form {
             numberInStock: "",
             dailyRentalRate: "",
         },
-        errors: {},
-        genres: []
+        genres: [],
+        errors: {}
     };
 
-    componentDidMount() {
-        const genres = [{ _id: "", name: "Select Genres" }, ...getGenres()];
-        this.setState({ genres });
-    }
-
     rules = {
+        _id: Joi.string(),
         title: Joi.string().required().label("Title"),
         genreId: Joi.string().required().label("Genre"),
         numberInStock: Joi.number().required().min(0).max(100).label("Number in Stock"),
@@ -30,8 +29,24 @@ class MovieForm extends Form {
 
     schema = Joi.object(this.rules);
 
+    componentDidMount() {
+        const genres = [{ _id: "", name: "Select Genres" }, ...getGenres()];
+        this.setState({ genres });
+
+        const {id: movieID} = this.props.params;  
+        if(movieID === "new") return;
+        
+        const movie = getMovie(movieID);
+
+        if(!movie ) return //not-found
+
+    }
+
+    
+
     doSubmit = () => {
-        console.log('Added.');
+        saveMovie(this.state.data);
+        this.props.history.push('/movies');
     };
 
     render() {
@@ -54,4 +69,10 @@ class MovieForm extends Form {
     }
 }
 
-export default MovieForm;
+// export default MovieForm;
+export default (props) => (
+    <MovieForm
+        {...props}
+        params={useParams()}
+    />
+);

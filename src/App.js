@@ -21,12 +21,12 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route exact path="/movies/new" element={<MovieForm />} />
-          <Route path="/movies/:id" element={<MovieDetails />} />
+          <Route path="/movies/:id" element={<MovieForm />} />
           <Route path="/movies" element={<Movies />} />
           <Route exact path="/" element={<Navigate replace to="/movies" />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/rentals" element={<Rentals />} />
+          <Route path="/not-found" element={<NoMatch />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </main>
